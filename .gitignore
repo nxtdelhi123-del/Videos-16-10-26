@@ -1,0 +1,4 @@
+nxt-intro/out/*.mp4
+nxt-intro/.hyperframes/
+node_modules/
+__pycache__/
