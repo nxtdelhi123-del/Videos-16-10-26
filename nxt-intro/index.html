@@ -207,6 +207,39 @@
         background: linear-gradient(90deg, rgba(255, 42, 42, 0) 0%, #ff2a2a 70%, #ffd9d6 100%);
       }
 
+      /* ---------- game plates ---------- */
+      .plate {
+        position: absolute;
+        inset: 0;
+        transform-origin: 50% 38%;
+      }
+      .plate img {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+      .scrim-b {
+        background: linear-gradient(0deg, rgba(10, 10, 11, 0.97) 0%, rgba(10, 10, 11, 0.9) 20%, rgba(10, 10, 11, 0.55) 36%, rgba(10, 10, 11, 0) 54%);
+      }
+      .scrim-b.soft {
+        background: linear-gradient(0deg, rgba(10, 10, 11, 0.95) 0%, rgba(10, 10, 11, 0.6) 16%, rgba(10, 10, 11, 0) 34%);
+      }
+      .scrim-t {
+        background: linear-gradient(180deg, rgba(10, 10, 11, 0.7) 0%, rgba(10, 10, 11, 0) 16%);
+      }
+      .scrim-l {
+        background: linear-gradient(90deg, rgba(10, 10, 11, 0.9) 0%, rgba(10, 10, 11, 0.55) 24%, rgba(10, 10, 11, 0) 46%);
+      }
+      .scrim-r {
+        background: linear-gradient(270deg, rgba(10, 10, 11, 0.9) 0%, rgba(10, 10, 11, 0.55) 24%, rgba(10, 10, 11, 0) 46%);
+      }
+      .ghost {
+        color: rgba(244, 245, 246, 0.16);
+      }
+      .l3 {
+        top: 1452px;
+      }
+
       /* ---------- statement ---------- */
       #wall {
         position: absolute;
@@ -260,6 +293,21 @@
         color: var(--nxt-red);
       }
 
+      #mosaic .mstrip {
+        position: absolute;
+        inset: 0;
+      }
+      #mosaic img {
+        position: absolute;
+        left: -80px;
+        top: -80px;
+        width: 1240px;
+        height: calc(100% + 160px);
+        filter: brightness(0.46) saturate(0.85) contrast(1.05);
+      }
+      #wall {
+        opacity: 0.22;
+      }
       /* ---------- end card ---------- */
       #endcard {
         background: var(--paper);
@@ -381,21 +429,28 @@
       </section>
 
       <!-- ================= BEAT 2 · ROLL-CALL 1.20–6.60 ================= -->
+      <!-- every card: graded key-art plate, scrims where the type sits, one typographic lockup -->
       <!-- 01 · layout (b) split across two lines on the grid -->
       <section id="c1" class="clip scene" data-start="1.2" data-duration="1.0" data-track-index="2" style="z-index: 21">
         <div class="in ink" id="c1in">
-          <div id="c1a" class="abs disp" style="left: 80px; top: 486px; font-size: 236px">EA SPORTS</div>
-          <div id="c1b" class="abs disp" style="right: 80px; top: 720px; font-size: 470px">FC 26</div>
+          <div class="plate" id="c1p"><img src="assets/games/plates/916/01.jpg" alt="" /></div>
+          <div class="layer scrim-t"></div>
+          <div class="layer scrim-b"></div>
+          <div id="c1a" class="abs disp" style="left: 80px; top: 950px; font-size: 190px">EA SPORTS</div>
+          <div id="c1b" class="abs disp" style="right: 80px; top: 1132px; font-size: 350px">FC 26</div>
           <div class="mono l3 left" id="c1l"><span class="idx"><em>01</em><span class="of"> / 08</span></span><i class="tick"></i><span class="lab">FOOTBALL · 1V1</span></div>
         </div>
       </section>
 
       <!-- 02 · layout (c) vertical title on the left edge, huge index in the void -->
       <section id="c2" class="clip scene" data-start="2.0" data-duration="0.8" data-track-index="3" style="z-index: 22">
-        <div class="in graphite" id="c2in">
-          <div id="c2n" class="abs disp" style="right: 60px; top: 380px; font-size: 900px; color: #24262b; letter-spacing: -0.04em">02</div>
-          <div id="c2v" class="abs" style="left: 80px; top: 1500px; width: 1280px; height: 230px; transform-origin: 0 0; rotate: -90deg">
-            <div id="c2t" class="disp" style="font-size: 236px; line-height: 230px">EA SPORTS FC 27</div>
+        <div class="in ink" id="c2in">
+          <div class="plate" id="c2p"><img src="assets/games/plates/916/02.jpg" alt="" /></div>
+          <div class="layer scrim-l"></div>
+          <div class="layer scrim-b soft"></div>
+          <div id="c2n" class="abs disp ghost" style="right: 60px; top: 1030px; font-size: 560px; letter-spacing: -0.04em">02</div>
+          <div id="c2v" class="abs" style="left: 80px; top: 1400px; width: 1180px; height: 204px; transform-origin: 0 0; rotate: -90deg">
+            <div id="c2t" class="disp" style="font-size: 206px; line-height: 204px">EA SPORTS FC 27</div>
           </div>
           <div class="mono l3 right" id="c2l"><span class="idx"><em>02</em><span class="of"> / 08</span></span><i class="tick"></i><span class="lab">FOOTBALL · 1V1 / CO-OP</span></div>
         </div>
@@ -404,7 +459,10 @@
       <!-- 03 · layout (a) giant word cropped by the left edge -->
       <section id="c3" class="clip scene" data-start="2.8" data-duration="1.0" data-track-index="4" style="z-index: 23">
         <div class="in ink" id="c3in">
-          <div id="c3t" class="abs disp" style="right: 80px; top: 716px; font-size: 300px"><span>VALORAN</span><span id="c3last" class="ib">T</span></div>
+          <div class="plate" id="c3p"><img src="assets/games/plates/916/03.jpg" alt="" /></div>
+          <div class="layer scrim-t"></div>
+          <div class="layer scrim-b"></div>
+          <div id="c3t" class="abs disp" style="right: 80px; top: 1124px; font-size: 272px"><span>VALORAN</span><span id="c3last" class="ib">T</span></div>
           <div class="mono l3 right" id="c3l"><span class="idx"><em>03</em><span class="of"> / 08</span></span><i class="tick"></i><span class="lab">TACTICAL FPS · 5V5</span></div>
         </div>
       </section>
@@ -412,27 +470,35 @@
       <!-- 04 · layout (d) title knocked out of a red slash -->
       <section id="c4" class="clip scene" data-start="3.6" data-duration="0.8" data-track-index="5" style="z-index: 24">
         <div class="in graphite" id="c4in">
-          <div id="c4band" class="abs" style="left: -560px; top: 760px; width: 2200px; height: 290px; rotate: -32deg">
+          <div class="plate" id="c4p"><img src="assets/games/plates/916/04.jpg" alt="" /></div>
+          <div class="layer scrim-b soft"></div>
+          <div id="c4band" class="abs" style="left: -560px; top: 980px; width: 2200px; height: 260px; rotate: -32deg">
             <div id="c4red" class="layer" style="background: var(--nxt-red); transform-origin: 0% 50%"></div>
-            <div id="c4t" class="abs disp" style="left: 0; right: 0; top: 0; height: 290px; line-height: 290px; text-align: center; font-size: 160px; color: var(--graphite)">COUNTER-STRIKE 2</div>
+            <div id="c4t" class="abs disp" style="left: 0; right: 0; top: 0; height: 260px; line-height: 260px; text-align: center; font-size: 150px; color: var(--ink)">COUNTER-STRIKE 2</div>
           </div>
-          <div class="mono l3 left" id="c4l"><span class="idx"><em>04</em><span class="of"> / 08</span></span><i class="tick"></i><span class="lab">TACTICAL FPS · 5V5</span></div>
+          <div class="mono l3 right" id="c4l"><span class="idx"><em>04</em><span class="of"> / 08</span></span><i class="tick"></i><span class="lab">TACTICAL FPS · 5V5</span></div>
         </div>
       </section>
 
       <!-- 05 · layout (b) split, offset on the grid -->
       <section id="c5" class="clip scene" data-start="4.2" data-duration="0.8" data-track-index="6" style="z-index: 25">
         <div class="in ink" id="c5in">
-          <div id="c5a" class="abs disp" style="left: 80px; top: 560px; font-size: 310px">ROCKET</div>
-          <div id="c5b" class="abs disp" style="right: 80px; top: 846px; font-size: 310px">LEAGUE</div>
+          <div class="plate" id="c5p"><img src="assets/games/plates/916/05.jpg" alt="" /></div>
+          <div class="layer scrim-t"></div>
+          <div class="layer scrim-b"></div>
+          <div id="c5a" class="abs disp" style="left: 80px; top: 960px; font-size: 280px">ROCKET</div>
+          <div id="c5b" class="abs disp" style="right: 80px; top: 1180px; font-size: 280px">LEAGUE</div>
           <div class="mono l3 left" id="c5l"><span class="idx"><em>05</em><span class="of"> / 08</span></span><i class="tick"></i><span class="lab">CAR FOOTBALL · 3V3</span></div>
         </div>
       </section>
 
       <!-- 06 · layout (a) giant word cropped by the left edge -->
       <section id="c6" class="clip scene" data-start="4.8" data-duration="0.8" data-track-index="7" style="z-index: 26">
-        <div class="in graphite" id="c6in">
-          <div id="c6t" class="abs disp" style="right: 80px; top: 660px; font-size: 580px; letter-spacing: -0.03em"><span>BGM</span><span id="c6last" class="ib">I</span></div>
+        <div class="in ink" id="c6in">
+          <div class="plate" id="c6p"><img src="assets/games/plates/916/06.jpg" alt="" /></div>
+          <div class="layer scrim-t"></div>
+          <div class="layer scrim-b"></div>
+          <div id="c6t" class="abs disp" style="right: 80px; top: 950px; font-size: 560px; letter-spacing: -0.03em"><span>BGM</span><span id="c6last" class="ib">I</span></div>
           <div class="mono l3 right" id="c6l"><span class="idx"><em>06</em><span class="of"> / 08</span></span><i class="tick"></i><span class="lab">BATTLE ROYALE · SQUADS</span></div>
         </div>
       </section>
@@ -440,9 +506,12 @@
       <!-- 07 · layout (c) vertical title on the right edge, huge index in the void -->
       <section id="c7" class="clip scene" data-start="5.4" data-duration="0.8" data-track-index="8" style="z-index: 27">
         <div class="in ink" id="c7in">
-          <div id="c7n" class="abs disp" style="left: 70px; top: 300px; font-size: 900px; color: #1b1c20; letter-spacing: -0.04em">07</div>
-          <div id="c7v" class="abs" style="left: 1000px; top: 220px; width: 1280px; height: 230px; transform-origin: 0 0; rotate: 90deg">
-            <div id="c7t" class="disp" style="font-size: 236px; line-height: 230px; text-align: right">CALL OF DUTY</div>
+          <div class="plate" id="c7p"><img src="assets/games/plates/916/07.jpg" alt="" /></div>
+          <div class="layer scrim-r"></div>
+          <div class="layer scrim-b soft"></div>
+          <div id="c7n" class="abs disp ghost" style="left: 60px; top: 1030px; font-size: 560px; letter-spacing: -0.04em">07</div>
+          <div id="c7v" class="abs" style="left: 1000px; top: 220px; width: 1180px; height: 204px; transform-origin: 0 0; rotate: 90deg">
+            <div id="c7t" class="disp" style="font-size: 206px; line-height: 204px; text-align: right">CALL OF DUTY</div>
           </div>
           <div class="mono l3 left" id="c7l"><span class="idx"><em>07</em><span class="of"> / 08</span></span><i class="tick"></i><span class="lab">FPS · SQUADS</span></div>
         </div>
@@ -451,18 +520,20 @@
       <!-- 08 · layout (d) title inside the slash-shaped window -->
       <section id="c8" class="clip scene" data-start="6.0" data-duration="0.6" data-track-index="9" style="z-index: 28">
         <div class="in graphite" id="c8in">
-          <div id="c8n" class="abs disp" style="right: 50px; top: 360px; font-size: 1100px; color: #202227">8</div>
-          <div id="c8band" class="abs" style="left: -560px; top: 820px; width: 2200px; height: 250px; rotate: -32deg">
+          <div class="plate" id="c8p"><img src="assets/games/plates/916/08.jpg" alt="" /></div>
+          <div class="layer scrim-b soft"></div>
+          <div id="c8band" class="abs" style="left: -560px; top: 1150px; width: 2200px; height: 240px; rotate: -32deg">
             <div id="c8red" class="layer" style="background: var(--nxt-red); transform-origin: 100% 50%"></div>
-            <div id="c8t" class="abs disp" style="left: 0; right: 0; top: 0; height: 250px; line-height: 250px; text-align: center; font-size: 220px; color: var(--graphite)">TEKKEN 8</div>
+            <div id="c8t" class="abs disp" style="left: 0; right: 0; top: 0; height: 240px; line-height: 240px; text-align: center; font-size: 200px; color: var(--ink)">TEKKEN 8</div>
           </div>
-          <div class="mono l3 left" id="c8l"><span class="idx"><em>08</em><span class="of"> / 08</span></span><i class="tick"></i><span class="lab">FIGHTING · 1V1</span></div>
+          <div class="mono l3 right" id="c8l"><span class="idx"><em>08</em><span class="of"> / 08</span></span><i class="tick"></i><span class="lab">FIGHTING · 1V1</span></div>
         </div>
       </section>
 
       <!-- ================= BEAT 3 · STATEMENT 6.60–7.70 ================= -->
       <section id="stmt" class="clip scene ink" data-start="6.6" data-duration="1.1" data-track-index="10" style="z-index: 30">
         <div class="in" id="stmtIn">
+          <div id="mosaic" class="layer"><div class="mstrip" id="ms1"><img src="assets/games/plates/916/01.jpg" alt="" /></div><div class="mstrip" id="ms2"><img src="assets/games/plates/916/02.jpg" alt="" /></div><div class="mstrip" id="ms3"><img src="assets/games/plates/916/03.jpg" alt="" /></div><div class="mstrip" id="ms4"><img src="assets/games/plates/916/04.jpg" alt="" /></div><div class="mstrip" id="ms5"><img src="assets/games/plates/916/05.jpg" alt="" /></div><div class="mstrip" id="ms6"><img src="assets/games/plates/916/06.jpg" alt="" /></div><div class="mstrip" id="ms7"><img src="assets/games/plates/916/07.jpg" alt="" /></div><div class="mstrip" id="ms8"><img src="assets/games/plates/916/08.jpg" alt="" /></div></div>
           <div id="wall"><div id="wallIn"></div></div>
           <div id="plate" class="layer"></div>
           <div id="headline">
@@ -626,6 +697,12 @@
             tl.fromTo(inId, { clipPath: hp(-120, -1) }, { clipPath: hp(D_MAX + 120, -1), duration: F(6), ease: "nxtWipe" }, t);
           };
 
+          // key-art plates: fast push in, slow settle for the length of each slot
+          CustomEase.create("nxtPush", "M0,0 C0.08,0.56 0.3,0.93 1,1");
+          [["#c1p", 1.2, 0.8], ["#c2p", 2.0, 0.8], ["#c3p", 2.8, 0.8], ["#c4p", 3.6, 0.6], ["#c5p", 4.2, 0.6], ["#c6p", 4.8, 0.6], ["#c7p", 5.4, 0.6], ["#c8p", 6.0, 0.6]].forEach(([id, t, d], i) => {
+            tl.fromTo(id, { scale: 1.14, x: i % 2 ? 30 : -30 }, { scale: 1.02, x: 0, duration: d + F(2), ease: "nxtPush" }, t);
+          });
+
           // 01 — 1.20 (hard cut from hook)
           tl.fromTo("#c1a", { x: -70 }, { x: 0, duration: F(7), ease: "nxtIn" }, 1.2);
           tl.fromTo("#c1b", { x: 260 }, { x: 0, duration: F(8), ease: "nxtIn" }, 1.2);
@@ -678,11 +755,20 @@
           slashIn("#c8in", 6.0);
           tl.fromTo("#c8red", { scaleX: 0 }, { scaleX: 1, duration: F(7), ease: "nxtIn" }, 6.0 + F(1));
           tl.fromTo("#c8t", { x: 260 }, { x: 0, duration: F(8), ease: "nxtIn" }, 6.0 + F(2));
-          tl.fromTo("#c8n", { opacity: 0 }, { opacity: 1, duration: F(8), ease: "nxtIn" }, 6.0 + F(3));
           lower("#c8l", 6.0);
 
           // ============ BEAT 3 · STATEMENT ============
           buildWall();
+          // all eight games at once: slash strips of every key art, sliding along the cut
+          const NS = 8;
+          for (let i = 0; i < NS; i++) {
+            const d0 = (D_MAX / NS) * i;
+            const d1 = (D_MAX / NS) * (i + 1);
+            gsap.set("#ms" + (i + 1), { clipPath: strip(d0 + 3, d1 - 3) });
+            const dir = i % 2 ? 1 : -1;
+            const t0 = 6.6 + F(i % 4);
+            tl.fromTo("#ms" + (i + 1) + " img", { x: dir * U[0] * 420, y: dir * U[1] * 420 }, { x: -dir * U[0] * 40, y: -dir * U[1] * 40, duration: 1.1 - F(i % 4), ease: "nxtPush" }, t0);
+          }
           tl.fromTo("#wallIn", { x: -300 }, { x: -1500, duration: 1.1, ease: "none" }, 6.6);
           const words = [
             ["#h1", 6.6],

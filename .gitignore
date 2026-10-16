@@ -2,3 +2,4 @@ nxt-intro/out/*.mp4
 nxt-intro/.hyperframes/
 node_modules/
 __pycache__/
+nxt-intro/assets/games/hd/

@@ -16,25 +16,25 @@ OVR = """
       #hookGame { top: 1200px !important; font-size: 300px !important; }
       #hookSlash { top: 668px !important; }
       .l3 { top: 1180px !important; }
-      #c1a { top: 350px !important; }
-      #c1b { top: 562px !important; }
-      #c2n { top: 200px !important; font-size: 720px !important; }
-      #c2v { top: 1210px !important; width: 1000px !important; }
-      #c2t { font-size: 196px !important; }
-      #c3t { top: 558px !important; }
-      #c4band { top: 530px !important; }
-      #c5a { top: 417px !important; }
-      #c5b { top: 676px !important; }
-      #c6t { top: 508px !important; }
-      #c7n { top: 182px !important; font-size: 720px !important; }
-      #c7v { top: 110px !important; width: 1000px !important; }
-      #c7t { font-size: 196px !important; }
-      #c8n { top: 160px !important; font-size: 900px !important; }
-      #c8band { top: 550px !important; }
+      #c1a { top: 712px !important; font-size: 170px !important; }
+      #c1b { top: 876px !important; font-size: 300px !important; }
+      #c2n { top: 790px !important; font-size: 420px !important; }
+      #c2v { top: 1150px !important; width: 1040px !important; height: 180px !important; }
+      #c2t { font-size: 182px !important; line-height: 180px !important; }
+      #c3t { top: 900px !important; font-size: 256px !important; }
+      #c4band { top: 760px !important; }
+      #c5a { top: 720px !important; font-size: 250px !important; }
+      #c5b { top: 916px !important; font-size: 250px !important; }
+      #c6t { top: 740px !important; font-size: 500px !important; }
+      #c7n { top: 790px !important; font-size: 420px !important; }
+      #c7v { top: 110px !important; width: 1040px !important; height: 180px !important; }
+      #c7t { font-size: 182px !important; line-height: 180px !important; }
+      #c8band { top: 850px !important; }
       #wall { top: -1025px !important; }
       #headline { top: 300px !important; }
     </style>"""
 s = s.replace("    </style>", OVR, 1)
+s = s.replace("assets/games/plates/916/", "assets/games/plates/45/")
 out = root / "variants/4x5"
 out.mkdir(parents=True, exist_ok=True)
 (out / "index.html").write_text(s)
