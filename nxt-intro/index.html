@@ -555,7 +555,9 @@
             [b[0] - U[0] * L, b[1] - U[1] * L],
           ]);
         }
-        const D_MAX = nd(1080, 1920); // 2200: full frame
+        const H = +document.getElementById("root").dataset.height; // 1920 (9:16) or 1350 (4:5)
+        const D_MAX = nd(1080, H); // full frame
+        const LOGO = H === 1350 ? { w: 700, top: 300 } : { w: 860, top: 420 };
 
         // ---- seeded PRNG (mulberry32) ----
         function rng(seed) {
@@ -588,7 +590,7 @@
           const $ = (id) => document.getElementById(id);
 
           // ============ BEAT 1 · HOOK ============
-          const seam = nd(540, 960);
+          const seam = nd(540, H / 2);
           // planes: one dark field, cut along the slash through frame centre
           gsap.set("#hookPlaneA", { clipPath: hp(seam, -1, -400, -400) });
           gsap.set("#hookPlaneB", { clipPath: hp(seam, 1, -400, -400) });
@@ -696,8 +698,8 @@
 
           // ============ BEAT 4 · LOGO ============
           const L = { logo: { x: 434, y: 138, w: 2098, h: 1636 }, eagle: { x: 434, y: 138, w: 2098, h: 1362 }, word: { x: 796, y: 1226, w: 1606, h: 548 }, eye: { x: 2289.5, y: 645.2 }, xs: { x0: 1380, y0: 1627.6, x1: 1932, y1: 1279.3 } };
-          const S = 860 / L.logo.w;
-          const LOGO_TOP = 420;
+          const S = LOGO.w / L.logo.w;
+          const LOGO_TOP = LOGO.top;
           const SX = 540 - (L.logo.x + L.logo.w / 2) * S;
           const SY = LOGO_TOP - L.logo.y * S;
           const cv = (x, y) => [SX + x * S, SY + y * S];
