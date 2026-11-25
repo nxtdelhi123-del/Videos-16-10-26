@@ -29,3 +29,9 @@ python3 tools/build.py
 npx --yes hyperframes@0.8.164 check
 npx --yes hyperframes@0.8.164 render -o renders/NXT_TheCall_30s_9x16.mp4
 ```
+
+## Status (2026-11-25)
+
+- Graphics, music bed (`assets/music/call-bed.mp3`) and timing are done. `out/NXT_TheCall_PREVIEW_standin-clips.mp4` is a 720p preview with stand-in clips.
+- Still to do: cut the real footage in. Vinol's raw clip is in the Drive folder (`VID_20261125_041135_089_bsl.mp4`, 46 MB, one file, likely all of V1–V10); Aditya's A1–A11 were not sent yet.
+- Steps: put raw files in `raw/` (git-ignored), transcribe, write `cuts.json` with each line's in/out, run `python3 tools/prep_footage.py cuts.json`, adjust `dur`/captions in `tools/timeline.py` if a take runs long, then `python3 tools/build.py`, check, render 9:16 and a 4:5 cut.
