@@ -30,8 +30,10 @@ npx --yes hyperframes@0.8.164 check
 npx --yes hyperframes@0.8.164 render -o renders/NXT_TheCall_30s_9x16.mp4
 ```
 
-## Status (2026-11-25)
+## Status (2026-11-25, evening)
 
-- Graphics, music bed (`assets/music/call-bed.mp3`) and timing are done. `out/NXT_TheCall_PREVIEW_standin-clips.mp4` is a 720p preview with stand-in clips.
-- Still to do: cut the real footage in. Vinol's raw clip is in the Drive folder (`VID_20261125_041135_089_bsl.mp4`, 46 MB, one file, likely all of V1–V10); Aditya's A1–A11 were not sent yet.
-- Steps: put raw files in `raw/` (git-ignored), transcribe, write `cuts.json` with each line's in/out, run `python3 tools/prep_footage.py cuts.json`, adjust `dur`/captions in `tools/timeline.py` if a take runs long, then `python3 tools/build.py`, check, render 9:16 and a 4:5 cut.
+- Vinol's lines V1–V10 are cut in from his real footage (`raw/vinol_041135.mp4` = Drive `VID_20261125_041135_089_bsl.mp4`; takes chosen in `cuts.json`). The other Drive clip (`VID_20261125_012705_062_bsl.mp4`) is an unrelated Ronaldo news piece, not part of this reel.
+- Aditya's A1–A11 are still stand-ins: his clips were not in Drive yet.
+- Raw files download straight from Drive in the "NXT reels (Drive downloads)" cloud environment: `curl -L -o raw/<name>.mp4 "https://drive.usercontent.google.com/download?id=<fileId>&export=download&confirm=t"`.
+- Transcribing for timings: Whisper small (CTranslate2) via faster-whisper; HuggingFace is blocked here, so the weights came from npm (`@skillninja/shortmovie-telop-model-p0..p3`, joined `model.bin`, sha256 checked). Silence detection (`silencedetect=n=-30dB`) gives tighter in/out points than Whisper's word times.
+- To finish: add Aditya's takes to `cuts.json`, run `python3 tools/prep_footage.py cuts.json`, `python3 tools/build.py`, check, render 9:16 and a 4:5 cut.

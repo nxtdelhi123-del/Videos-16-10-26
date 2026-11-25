@@ -1,0 +1,12 @@
+{
+  "V1":  {"src": "raw/vinol_041135.mp4", "in": 0.46,  "out": 2.42, "speed": 1.05},
+  "V2":  {"src": "raw/vinol_041135.mp4", "in": 9.17,  "out": 9.91},
+  "V3":  {"src": "raw/vinol_041135.mp4", "in": 12.67, "out": 13.76},
+  "V4":  {"src": "raw/vinol_041135.mp4", "in": 15.42, "out": 16.56},
+  "V5":  {"src": "raw/vinol_041135.mp4", "in": 22.39, "out": 23.09},
+  "V6":  {"src": "raw/vinol_041135.mp4", "in": 26.54, "out": 27.49},
+  "V7":  {"src": "raw/vinol_041135.mp4", "in": 30.58, "out": 31.27},
+  "V8":  {"src": "raw/vinol_041135.mp4", "in": 34.20, "out": 35.80},
+  "V9":  {"src": "raw/vinol_041135.mp4", "in": 45.64, "out": 46.40},
+  "V10": {"src": "raw/vinol_041135.mp4", "in": 48.70, "out": 51.30}
+}
