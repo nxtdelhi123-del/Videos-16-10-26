@@ -3,3 +3,6 @@ nxt-intro/.hyperframes/
 node_modules/
 __pycache__/
 nxt-intro/assets/games/hd/
+the-call/renders/
+the-call/.hyperframes/
+the-call/raw/

@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>NXT — The Call (intro reel)</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Big Shoulders Display"; src: url("assets/fonts/big-shoulders-display-latin-900-normal.woff2") format("woff2"); font-weight: 900; font-display: block; }
+      @font-face { font-family: "JetBrains Mono"; src: url("assets/fonts/jetbrains-mono-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-display: block; }
+      :root { --nxt-red: #e1060f; --ink: #0a0a0b; --graphite: #16171a; --white: #f4f5f6; --paper: #f6f6f6; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--ink); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; -webkit-font-smoothing: antialiased; }
+      .layer { position: absolute; inset: 0; }
+      .scene { position: absolute; inset: 0; overflow: hidden; }
+      .scene > .in { position: absolute; inset: 0; overflow: hidden; }
+      .ink { background: var(--ink); }
+      .abs { position: absolute; }
+      .disp { font-family: "Big Shoulders Display", sans-serif; font-weight: 900; text-transform: uppercase; line-height: 0.86; white-space: nowrap; color: var(--white); letter-spacing: -0.01em; }
+      .mono { font-family: "JetBrains Mono", monospace; font-weight: 500; text-transform: uppercase; white-space: nowrap; letter-spacing: 0.12em; }
+      .chrome { background-image: linear-gradient(180deg, #f4f5f6 0%, #e4e7ea 34%, #b9bec4 47%, #7f858d 51%, #c9cdd2 60%, #eef0f2 86%, #f4f5f6 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+      .red { color: var(--nxt-red); }
+      video.foot { position: absolute; object-fit: cover; }
+      video.clip { position: absolute; }
+
+      /* live bug */
+      #live { position: absolute; right: 192px; top: 296px; }
+      #liveIn { display: flex; align-items: center; gap: 14px; }
+      #livePill { display: flex; align-items: center; gap: 10px; background: var(--nxt-red); color: #fff; font-size: 24px; padding: 8px 14px 8px 12px; }
+      #liveDot { display: block; width: 12px; height: 12px; border-radius: 50%; background: #fff; }
+      #liveCh { font-size: 22px; color: var(--white); background: rgba(10, 10, 11, 0.72); padding: 9px 12px; }
+
+      /* name strap */
+      .namestrap { position: absolute; left: 120px; top: 858px; }
+      .nsIn { border-left: 8px solid var(--nxt-red); background: rgba(10, 10, 11, 0.82); padding: 10px 22px 12px 18px; }
+      .nsName { font-size: 58px; }
+      .nsSub { font-size: 20px; color: var(--nxt-red); margin-top: 6px; }
+
+      /* breaking strap */
+      #breaking { position: absolute; left: 120px; top: 984px; width: 768px; }
+      #brkA { display: inline-block; background: var(--nxt-red); color: #fff; font-size: 48px; line-height: 60px; padding: 0 18px; transform-origin: 0 50%; }
+      #brkB { display: block; width: max-content; max-width: 768px; background: var(--white); color: var(--ink); font-size: 56px; line-height: 70px; padding: 0 18px; transform-origin: 0 50%; }
+      #ticker { position: absolute; left: 0; top: 1262px; width: 1080px; height: 46px; background: rgba(10, 10, 11, 0.85); border-top: 3px solid var(--nxt-red); overflow: hidden; }
+      #tickIn { position: absolute; left: 0; top: 8px; font-size: 22px; color: var(--white); }
+
+      /* captions */
+      .cap { position: absolute; left: 120px; top: 1140px; width: 768px; height: 104px; display: flex; align-items: flex-end; justify-content: center; overflow: visible; }
+      .capt { display: inline-block; font-size: 70px; line-height: 82px; color: #fff; background: rgba(10, 10, 11, 0.78); padding: 4px 16px 6px; text-align: center; white-space: nowrap; }
+
+      /* NXT letters */
+      #nxtL { position: absolute; left: 0; top: 600px; width: 1080px; display: flex; justify-content: center; gap: 30px; }
+      .nl { display: inline-block; font-size: 460px; line-height: 0.86; }
+
+      /* pip */
+      .pipframe { position: absolute; left: 112px; top: 292px; width: 304px; height: 400px; background: var(--nxt-red); }
+      .piptag { position: absolute; left: 8px; bottom: -40px; font-size: 20px; color: #fff; background: var(--nxt-red); padding: 6px 10px; }
+
+      /* roll call */
+      .plate { position: absolute; inset: 0; transform-origin: 50% 40%; }
+      .plate img { display: block; width: 100%; height: 100%; object-fit: cover; }
+      .scrim-b { background: linear-gradient(0deg, rgba(10,10,11,0.97) 0%, rgba(10,10,11,0.9) 30%, rgba(10,10,11,0.55) 44%, rgba(10,10,11,0) 60%); }
+      .scrim-t { background: linear-gradient(180deg, rgba(10,10,11,0.75) 0%, rgba(10,10,11,0) 22%); }
+      .gtitle { left: 120px; }
+      .gtag { left: 124px; font-size: 26px; color: var(--white); display: flex; align-items: center; gap: 16px; }
+      .gtag .tick { display: block; width: 40px; height: 4px; background: var(--nxt-red); transform: rotate(-32deg); }
+      .gslash { position: absolute; left: -200px; top: 940px; width: 1480px; height: 26px; background: var(--nxt-red); rotate: -32deg; }
+
+      /* pitch */
+      .strip { position: absolute; top: 0; width: 154.3px; height: 1920px; overflow: hidden; }
+      .strip img { position: absolute; top: 0; width: 1080px; height: 1920px; object-fit: cover; }
+      #pdim { background: linear-gradient(180deg, rgba(10,10,11,0.55) 0%, rgba(10,10,11,0.82) 40%, rgba(10,10,11,0.9) 100%); }
+      .pword { left: 0; width: 1080px; text-align: center; }
+
+      /* chat */
+      #chat { position: absolute; left: 120px; top: 300px; width: 768px; }
+      #chatIn { display: flex; gap: 22px; background: rgba(246, 246, 246, 0.97); border-radius: 30px; padding: 26px 28px 22px; box-shadow: 0 18px 50px rgba(0,0,0,0.45); }
+      #chatAv { flex: 0 0 84px; height: 84px; border-radius: 50%; background: var(--nxt-red); color: #fff; font-family: Inter, sans-serif; font-weight: 900; font-size: 44px; line-height: 84px; text-align: center; }
+      #chatBody { flex: 1; font-family: Inter, sans-serif; color: var(--ink); }
+      #chatHead { display: flex; justify-content: space-between; font-size: 34px; }
+      #chatHead span { font-size: 24px; color: #777; font-weight: 400; }
+      #chatMsg { font-size: 36px; margin-top: 6px; }
+      #chatSeen { font-size: 20px; color: #2a7de1; margin-top: 10px; text-align: right; }
+
+      /* sign-off */
+      .soff { position: absolute; inset: 0; }
+      .sow { left: 0; width: 1080px; text-align: center; font-size: 230px; }
+      #so1a, #so1b { font-size: 290px; }
+
+      /* unison seam */
+      #seam { position: absolute; inset: 0; }
+      #seamBar { position: absolute; left: 0; top: 948px; width: 1080px; height: 24px; background: var(--nxt-red); }
+      #seamTxt { position: absolute; left: 0; width: 1080px; top: 860px; text-align: center; font-size: 200px; color: #fff; text-shadow: 0 8px 0 rgba(10,10,11,0.85); }
+      #seamCap { position: absolute; left: 120px; width: 768px; top: 1150px; text-align: center; }
+
+      /* end card */
+      #handle { position: absolute; left: 0; width: 1080px; top: 330px; text-align: center; font-size: 32px; color: var(--ink); }
+      #grain { background-image: url("assets/tex/grain.png"); background-size: 512px 512px; opacity: 0.05; pointer-events: none; }
+
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="30.4" data-fps="30" data-width="1080" data-height="1920">
+      <div id="bg" class="layer ink"></div>
+      <video id="v-A1" class="clip foot" src="assets/footage/A1.mp4" data-start="0.0" data-duration="2.0" data-media-start="0.0" data-has-audio="true" data-volume="1" data-track-index="2" playsinline style="left:0;top:0;width:1080px;height:1920px;z-index:10"></video>
+      <video id="v-V1" class="clip foot" src="assets/footage/V1.mp4" data-start="2.0" data-duration="2.0" data-media-start="0.0" data-has-audio="true" data-volume="1" data-track-index="3" playsinline style="left:0;top:0;width:1080px;height:1920px;z-index:10"></video>
+      <video id="v-A2" class="clip foot" src="assets/footage/A2.mp4" data-start="4.0" data-duration="1.2" data-media-start="0.0" data-has-audio="true" data-volume="1" data-track-index="2" playsinline style="left:0;top:0;width:1080px;height:1920px;z-index:10"></video>
+      <video id="v-V2" class="clip foot" src="assets/footage/V2.mp4" data-start="5.2" data-duration="1.2" data-media-start="0.0" data-has-audio="true" data-volume="1" data-track-index="3" playsinline style="left:0;top:0;width:1080px;height:1920px;z-index:10"></video>
+      <div id="pipf-A3" class="clip pipframe" data-start="6.4" data-duration="1.2" data-track-index="4" style="z-index:11"><div class="piptag mono">ADITYA</div></div>
+      <video id="v-A3" class="clip foot" src="assets/footage/A3.mp4" data-start="6.4" data-duration="1.2" data-media-start="0.0" data-has-audio="true" data-volume="1" data-track-index="2" playsinline style="left:120px;top:300px;width:288px;height:384px;z-index:12"></video>
+      <div id="pipf-V3" class="clip pipframe" data-start="7.6" data-duration="1.2" data-track-index="4" style="z-index:11"><div class="piptag mono">VINOL</div></div>
+      <video id="v-V3" class="clip foot" src="assets/footage/V3.mp4" data-start="7.6" data-duration="1.2" data-media-start="0.0" data-has-audio="true" data-volume="1" data-track-index="3" playsinline style="left:120px;top:300px;width:288px;height:384px;z-index:12"></video>
+      <div id="pipf-A4" class="clip pipframe" data-start="8.8" data-duration="1.2" data-track-index="4" style="z-index:11"><div class="piptag mono">ADITYA</div></div>
+      <video id="v-A4" class="clip foot" src="assets/footage/A4.mp4" data-start="8.8" data-duration="1.2" data-media-start="0.0" data-has-audio="true" data-volume="1" data-track-index="2" playsinline style="left:120px;top:300px;width:288px;height:384px;z-index:12"></video>
+      <div id="pipf-V4" class="clip pipframe" data-start="10.0" data-duration="1.2" data-track-index="4" style="z-index:11"><div class="piptag mono">VINOL</div></div>
+      <video id="v-V4" class="clip foot" src="assets/footage/V4.mp4" data-start="10.0" data-duration="1.2" data-media-start="0.0" data-has-audio="true" data-volume="1" data-track-index="3" playsinline style="left:120px;top:300px;width:288px;height:384px;z-index:12"></video>
+      <div id="pipf-A5" class="clip pipframe" data-start="11.2" data-duration="1.2" data-track-index="4" style="z-index:11"><div class="piptag mono">ADITYA</div></div>
+      <video id="v-A5" class="clip foot" src="assets/footage/A5.mp4" data-start="11.2" data-duration="1.2" data-media-start="0.0" data-has-audio="true" data-volume="1" data-track-index="2" playsinline style="left:120px;top:300px;width:288px;height:384px;z-index:12"></video>
+      <div id="pipf-V5" class="clip pipframe" data-start="12.4" data-duration="1.2" data-track-index="4" style="z-index:11"><div class="piptag mono">VINOL</div></div>
+      <video id="v-V5" class="clip foot" src="assets/footage/V5.mp4" data-start="12.4" data-duration="1.2" data-media-start="0.0" data-has-audio="true" data-volume="1" data-track-index="3" playsinline style="left:120px;top:300px;width:288px;height:384px;z-index:12"></video>
+      <div id="pipf-A6" class="clip pipframe" data-start="13.6" data-duration="1.2" data-track-index="4" style="z-index:11"><div class="piptag mono">ADITYA</div></div>
+      <video id="v-A6" class="clip foot" src="assets/footage/A6.mp4" data-start="13.6" data-duration="1.2" data-media-start="0.0" data-has-audio="true" data-volume="1" data-track-index="2" playsinline style="left:120px;top:300px;width:288px;height:384px;z-index:12"></video>
+      <div id="pipf-V6" class="clip pipframe" data-start="14.8" data-duration="1.6" data-track-index="4" style="z-index:11"><div class="piptag mono">VINOL</div></div>
+      <video id="v-V6" class="clip foot" src="assets/footage/V6.mp4" data-start="14.8" data-duration="1.6" data-media-start="0.0" data-has-audio="true" data-volume="1" data-track-index="3" playsinline style="left:120px;top:300px;width:288px;height:384px;z-index:12"></video>
+      <div id="pipf-A7" class="clip pipframe" data-start="16.4" data-duration="1.2" data-track-index="4" style="z-index:11"><div class="piptag mono">ADITYA</div></div>
+      <video id="v-A7" class="clip foot" src="assets/footage/A7.mp4" data-start="16.4" data-duration="1.2" data-media-start="0.0" data-has-audio="true" data-volume="1" data-track-index="2" playsinline style="left:120px;top:300px;width:288px;height:384px;z-index:12"></video>
+      <div id="pipf-V7" class="clip pipframe" data-start="17.6" data-duration="1.2" data-track-index="4" style="z-index:11"><div class="piptag mono">VINOL</div></div>
+      <video id="v-V7" class="clip foot" src="assets/footage/V7.mp4" data-start="17.6" data-duration="1.2" data-media-start="0.0" data-has-audio="true" data-volume="1" data-track-index="3" playsinline style="left:120px;top:300px;width:288px;height:384px;z-index:12"></video>
+      <div id="pipf-A8" class="clip pipframe" data-start="18.8" data-duration="2.0" data-track-index="4" style="z-index:11"><div class="piptag mono">ADITYA</div></div>
+      <video id="v-A8" class="clip foot" src="assets/footage/A8.mp4" data-start="18.8" data-duration="2.0" data-media-start="0.0" data-has-audio="true" data-volume="1" data-track-index="2" playsinline style="left:120px;top:300px;width:288px;height:384px;z-index:12"></video>
+      <video id="v-V8" class="clip foot" src="assets/footage/V8.mp4" data-start="20.8" data-duration="2.0" data-media-start="0.0" data-has-audio="true" data-volume="1" data-track-index="3" playsinline style="left:0;top:0;width:1080px;height:1920px;z-index:10"></video>
+      <video id="v-A9" class="clip foot" src="assets/footage/A9.mp4" data-start="22.8" data-duration="2.0" data-media-start="0.0" data-has-audio="true" data-volume="1" data-track-index="2" playsinline style="left:0;top:0;width:1080px;height:1920px;z-index:10"></video>
+      <video id="v-V9" class="clip foot" src="assets/footage/V9.mp4" data-start="24.8" data-duration="1.2" data-media-start="0.0" data-has-audio="true" data-volume="1" data-track-index="3" playsinline style="left:0;top:0;width:1080px;height:1920px;z-index:10"></video>
+      <video id="v-A10" class="clip foot" src="assets/footage/A10.mp4" data-start="26.0" data-duration="1.2" data-media-start="0.0" data-has-audio="true" data-volume="1" data-track-index="2" playsinline style="left:0;top:0;width:1080px;height:1920px;z-index:10"></video>
+      <video id="v-A11" class="clip foot" src="assets/footage/A11.mp4" data-start="27.2" data-duration="2.4" data-media-start="0.0" data-has-audio="true" data-volume="1" data-track-index="2" playsinline style="left:0;top:0;width:1080px;height:960px;z-index:10"></video>
+      <video id="v-V10" class="clip foot" src="assets/footage/V10.mp4" data-start="27.2" data-duration="2.4" data-media-start="0.0" data-has-audio="true" data-volume="1" data-track-index="3" playsinline style="left:0;top:960px;width:1080px;height:960px;z-index:10"></video>
+      <div id="live" class="clip" data-start="0" data-duration="20.8" data-track-index="5" style="z-index:30"><div id="liveIn"><span id="livePill" class="mono"><i id="liveDot"></i>LIVE</span><span id="liveCh" class="mono">NXT SPORTS · DELHI</span></div></div>
+      <div id="name-A1" class="clip namestrap" data-start="0.25" data-duration="1.6" data-track-index="6" style="z-index:31"><div class="nsIn" id="nsIn-A1"><div class="nsName disp">ADITYA SONI</div><div class="nsSub mono">ON LOCATION</div></div></div>
+      <div id="name-V1" class="clip namestrap" data-start="2.2" data-duration="1.6" data-track-index="6" style="z-index:31"><div class="nsIn" id="nsIn-V1"><div class="nsName disp">VINOL ARUN</div><div class="nsSub mono">NXT STUDIO</div></div></div>
+      <div id="breaking" class="clip" data-start="0.35" data-duration="4.85" data-track-index="7" style="z-index:31"><div id="brkA" class="disp">BREAKING NEWS</div><div id="brkB" class="disp">NXT ARRIVES IN DELHI</div></div>
+      <div id="ticker" class="clip" data-start="0.35" data-duration="4.85" data-track-index="8" data-layout-ignore style="z-index:31"><div id="tickIn" class="mono">NXT ESPORTS ARENA OPENS IN DELHI · EA SPORTS FC · VALORANT · COUNTER-STRIKE 2 · ROCKET LEAGUE · BGMI · CALL OF DUTY · TEKKEN 8 · TOURNAMENTS · LEAGUES · COMMUNITY · @NXT._ESPORTS · NXT ESPORTS ARENA OPENS IN DELHI · EA SPORTS FC · VALORANT · COUNTER-STRIKE 2 · ROCKET LEAGUE · BGMI · CALL OF DUTY · TEKKEN 8 · TOURNAMENTS · LEAGUES · COMMUNITY · @NXT._ESPORTS · </div></div>
+      <div id="cap-A1-0" class="clip cap" data-start="0.15" data-duration="1.8" data-track-index="9" style="z-index:40"><span id="cap-A1-0-t" class="capt disp" style="font-size:48px">DELHI, AN IMPORTANT ANNOUNCEMENT.</span></div>
+      <div id="cap-V1-0" class="clip cap" data-start="2.15" data-duration="0.9" data-track-index="9" style="z-index:40"><span id="cap-V1-0-t" class="capt disp" style="font-size:70px">YOUR SOFA CAREER</span></div>
+      <div id="cap-V1-1" class="clip cap" data-start="3.05" data-duration="0.9" data-track-index="9" style="z-index:40"><span id="cap-V1-1-t" class="capt disp" style="font-size:70px">ENDS TODAY.</span></div>
+      <div id="cap-A2-0" class="clip cap" data-start="4.15" data-duration="1.0" data-track-index="9" style="z-index:40"><span id="cap-A2-0-t" class="capt disp" style="font-size:70px">BECAUSE DELHI NOW HAS…</span></div>
+      <div id="cap-V8-0" class="clip cap" data-start="20.95" data-duration="1.8" data-track-index="9" style="z-index:40"><span id="cap-V8-0-t" class="capt disp" style="font-size:70px">SO TELL MUM…</span></div>
+      <div id="cap-A9-0" class="clip cap" data-start="22.95" data-duration="0.9" data-track-index="9" style="z-index:40"><span id="cap-A9-0-t" class="capt disp" style="font-size:70px">…YOU'LL BE LATE</span></div>
+      <div id="cap-A9-1" class="clip cap" data-start="23.85" data-duration="0.9" data-track-index="9" style="z-index:40"><span id="cap-A9-1-t" class="capt disp" style="font-size:70px">FOR DINNER TONIGHT.</span></div>
+      <div id="nxtL" class="clip" data-start="5.2" data-duration="0.6" data-track-index="7" style="z-index:32"><span id="nl1" class="disp chrome nl">N</span><span id="nl2" class="disp nl red">X</span><span id="nl3" class="disp chrome nl">T</span></div>
+      <video id="v-slam" class="clip" src="assets/footage/logo-end.mp4" data-start="5.8" data-duration="0.6" data-media-start="0.1" muted playsinline data-track-index="4" style="left:0;top:0;width:1080px;height:1920px;z-index:50"></video>
+      <section id="g1" class="clip scene" data-start="6.4" data-duration="1.2" data-track-index="1" style="z-index:5"><div class="in ink"><div class="plate" id="g1p"><img src="assets/games/plates/916/01.jpg" alt="" /></div><div class="layer scrim-t"></div><div class="layer scrim-b"></div><div class="gslash" id="g1sl"></div><div id="g1t0" class="abs disp gtitle chrome" style="top:930px;font-size:179px">EA SPORTS</div><div id="g1t1" class="abs disp gtitle" style="top:1083px;font-size:300px">FC</div><div id="g1tag" class="abs mono gtag" style="top:1359px"><i class="tick"></i>FOOTBALL · 1V1 / CO-OP</div></div></section>
+      <section id="g2" class="clip scene" data-start="7.6" data-duration="1.2" data-track-index="1" style="z-index:5"><div class="in ink"><div class="plate" id="g2p"><img src="assets/games/plates/916/03.jpg" alt="" /></div><div class="layer scrim-t"></div><div class="layer scrim-b"></div><div class="gslash" id="g2sl"></div><div id="g2t0" class="abs disp gtitle chrome" style="top:1010px;font-size:202px">VALORANT</div><div id="g2tag" class="abs mono gtag" style="top:1201px"><i class="tick"></i>TACTICAL FPS · 5V5</div></div></section>
+      <section id="g3" class="clip scene" data-start="8.8" data-duration="1.2" data-track-index="1" style="z-index:5"><div class="in ink"><div class="plate" id="g3p"><img src="assets/games/plates/916/04.jpg" alt="" /></div><div class="layer scrim-t"></div><div class="layer scrim-b"></div><div class="gslash" id="g3sl"></div><div id="g3t0" class="abs disp gtitle chrome" style="top:930px;font-size:202px">COUNTER-</div><div id="g3t1" class="abs disp gtitle" style="top:1103px;font-size:202px">STRIKE 2</div><div id="g3tag" class="abs mono gtag" style="top:1294px"><i class="tick"></i>TACTICAL FPS · 5V5</div></div></section>
+      <section id="g4" class="clip scene" data-start="10.0" data-duration="1.2" data-track-index="1" style="z-index:5"><div class="in ink"><div class="plate" id="g4p"><img src="assets/games/plates/916/05.jpg" alt="" /></div><div class="layer scrim-t"></div><div class="layer scrim-b"></div><div class="gslash" id="g4sl"></div><div id="g4t0" class="abs disp gtitle chrome" style="top:930px;font-size:269px">ROCKET</div><div id="g4t1" class="abs disp gtitle" style="top:1161px;font-size:269px">LEAGUE</div><div id="g4tag" class="abs mono gtag" style="top:1410px"><i class="tick"></i>CAR FOOTBALL · 3V3</div></div></section>
+      <section id="g5" class="clip scene" data-start="11.2" data-duration="1.2" data-track-index="1" style="z-index:5"><div class="in ink"><div class="plate" id="g5p"><img src="assets/games/plates/916/06.jpg" alt="" /></div><div class="layer scrim-t"></div><div class="layer scrim-b"></div><div class="gslash" id="g5sl"></div><div id="g5t0" class="abs disp gtitle chrome" style="top:1010px;font-size:300px">BGMI</div><div id="g5tag" class="abs mono gtag" style="top:1286px"><i class="tick"></i>BATTLE ROYALE · SQUADS</div></div></section>
+      <section id="g6" class="clip scene" data-start="12.4" data-duration="1.2" data-track-index="1" style="z-index:5"><div class="in ink"><div class="plate" id="g6p"><img src="assets/games/plates/916/07.jpg" alt="" /></div><div class="layer scrim-t"></div><div class="layer scrim-b"></div><div class="gslash" id="g6sl"></div><div id="g6t0" class="abs disp gtitle chrome" style="top:930px;font-size:231px">CALL OF</div><div id="g6t1" class="abs disp gtitle" style="top:1128px;font-size:300px">DUTY</div><div id="g6tag" class="abs mono gtag" style="top:1404px"><i class="tick"></i>FPS · SQUADS</div></div></section>
+      <section id="g7" class="clip scene" data-start="13.6" data-duration="1.2" data-track-index="1" style="z-index:5"><div class="in ink"><div class="plate" id="g7p"><img src="assets/games/plates/916/08.jpg" alt="" /></div><div class="layer scrim-t"></div><div class="layer scrim-b"></div><div class="gslash" id="g7sl"></div><div id="g7t0" class="abs disp gtitle chrome" style="top:1010px;font-size:202px">TEKKEN 8</div><div id="g7tag" class="abs mono gtag" style="top:1201px"><i class="tick"></i>FIGHTING · 1V1</div></div></section>
+      <section id="pitch" class="clip scene ink" data-start="14.8" data-duration="6.0" data-track-index="1" style="z-index:5"><div class="in"><div id="strips" class="layer" data-layout-allow-overflow><div class="strip" id="st0" style="left:0.0px"><img src="assets/games/plates/916/01.jpg" alt="" style="left:-0.0px" /></div><div class="strip" id="st1" style="left:154.29px"><img src="assets/games/plates/916/03.jpg" alt="" style="left:-154.29px" /></div><div class="strip" id="st2" style="left:308.57px"><img src="assets/games/plates/916/04.jpg" alt="" style="left:-308.57px" /></div><div class="strip" id="st3" style="left:462.86px"><img src="assets/games/plates/916/05.jpg" alt="" style="left:-462.86px" /></div><div class="strip" id="st4" style="left:617.14px"><img src="assets/games/plates/916/06.jpg" alt="" style="left:-617.14px" /></div><div class="strip" id="st5" style="left:771.43px"><img src="assets/games/plates/916/07.jpg" alt="" style="left:-771.43px" /></div><div class="strip" id="st6" style="left:925.71px"><img src="assets/games/plates/916/08.jpg" alt="" style="left:-925.71px" /></div></div><div class="layer" id="pdim"></div><div id="pw1" class="abs disp pword chrome" style="top:740px;font-size:170px">ONE ARENA.</div><div id="pw2" class="abs disp pword " style="top:920px;font-size:118px">TOURNAMENTS</div><div id="pw3" class="abs disp pword " style="top:1030px;font-size:118px">LEAGUES</div><div id="pw4" class="abs disp pword red" style="top:1140px;font-size:118px">COMMUNITY.</div></div></section>
+      <div id="chat" class="clip" data-start="21.3" data-duration="3.5" data-track-index="7" style="z-index:33"><div id="chatIn"><div id="chatAv">M</div><div id="chatBody"><div id="chatHead"><b>Mummy</b><span>now</span></div><div id="chatMsg">Khana lag gaya hai. Kahan ho?</div><div id="chatSeen" class="mono">SEEN 9:42 PM</div></div></div></div>
+      <div id="so1" class="clip soff" data-start="24.8" data-duration="1.2" data-track-index="7" style="z-index:32"><div class="layer scrim-b"></div><div id="so1a" class="abs disp sow chrome" style="top:820px">EVERY</div><div id="so1b" class="abs disp sow chrome" style="top:1040px">GAME.</div></div>
+      <div id="so2" class="clip soff" data-start="26.0" data-duration="1.2" data-track-index="7" style="z-index:32"><div class="layer scrim-b"></div><div id="so2a" class="abs disp sow chrome" style="top:820px">YOUR</div><div id="so2b" class="abs disp sow red" style="top:1040px">ESPORTS.</div></div>
+      <div id="seam" class="clip" data-start="27.2" data-duration="1.2" data-track-index="7" style="z-index:32"><div id="seamBar"></div><div id="seamTxt" class="disp">N-X-T.</div><div id="seamCap" class="disp capt">THE NEXT ARENA IS HERE.</div></div>
+      <video id="v-end" class="clip" src="assets/footage/logo-end.mp4" data-start="28.4" data-duration="2.0" data-media-start="0.4" muted playsinline data-track-index="4" style="left:0;top:0;width:1080px;height:1920px;z-index:50"></video>
+      <div id="handle" class="clip mono" data-start="28.9" data-duration="1.5" data-track-index="7" style="z-index:51">FOLLOW @NXT._ESPORTS</div>
+      <div id="grain" class="clip layer" data-start="0" data-duration="30.4" data-track-index="10" data-layout-ignore style="z-index:90"></div>
+      <audio id="bed" src="assets/music/call-bed.mp3" data-start="0" data-duration="30.4" data-track-index="20" data-volume="0.24"></audio>
+      <audio id="sfx-impact" src="assets/sfx/impact.mp3" data-start="5.8" data-duration="1.6" data-track-index="21" data-volume="0.5"></audio>
+      <audio id="sfx-w0" src="assets/sfx/whoosh-1.mp3" data-start="6.32" data-duration="0.5" data-media-start="0.05" data-track-index="22" data-volume="0.28"></audio>
+      <audio id="sfx-w1" src="assets/sfx/whoosh-2.mp3" data-start="7.52" data-duration="0.5" data-media-start="0.05" data-track-index="22" data-volume="0.28"></audio>
+      <audio id="sfx-w2" src="assets/sfx/whoosh-1.mp3" data-start="8.72" data-duration="0.5" data-media-start="0.05" data-track-index="22" data-volume="0.28"></audio>
+      <audio id="sfx-w3" src="assets/sfx/whoosh-2.mp3" data-start="9.92" data-duration="0.5" data-media-start="0.05" data-track-index="22" data-volume="0.28"></audio>
+      <audio id="sfx-w4" src="assets/sfx/whoosh-1.mp3" data-start="11.12" data-duration="0.5" data-media-start="0.05" data-track-index="22" data-volume="0.28"></audio>
+      <audio id="sfx-w5" src="assets/sfx/whoosh-2.mp3" data-start="12.32" data-duration="0.5" data-media-start="0.05" data-track-index="22" data-volume="0.28"></audio>
+      <audio id="sfx-w6" src="assets/sfx/whoosh-1.mp3" data-start="13.52" data-duration="0.5" data-media-start="0.05" data-track-index="22" data-volume="0.28"></audio>
+      <audio id="sfx-chat" src="assets/sfx/whoosh-2.mp3" data-start="21.25" data-duration="0.5" data-track-index="22" data-volume="0.3"></audio>
+      <audio id="sfx-end" src="assets/sfx/whoosh-1.mp3" data-start="28.32" data-duration="0.5" data-track-index="22" data-volume="0.35"></audio>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#nsIn-A1",{x:-60,opacity:0},{x:0,opacity:1,duration:0.22,ease:"power3.out"},0.25);
+      tl.to("#nsIn-A1",{x:-40,opacity:0,duration:0.15,ease:"power2.in"},1.67);
+      tl.fromTo("#nsIn-V1",{x:-60,opacity:0},{x:0,opacity:1,duration:0.22,ease:"power3.out"},2.2);
+      tl.to("#nsIn-V1",{x:-40,opacity:0,duration:0.15,ease:"power2.in"},3.62);
+      tl.fromTo("#brkA",{scaleX:0},{scaleX:1,duration:0.25,ease:"power4.out"},0.35);
+      tl.fromTo("#brkB",{scaleX:0},{scaleX:1,duration:0.28,ease:"power4.out"},0.5);
+      tl.to(["#brkA","#brkB"],{x:-900,duration:0.25,ease:"power3.in",stagger:0.05},4.9);
+      tl.fromTo("#tickIn",{x:0},{x:-1500,duration:4.85,ease:"none"},0.35);
+      tl.fromTo("#liveDot",{opacity:1},{opacity:0.15,duration:0.4,ease:"none",repeat:25,yoyo:true},0);
+      tl.fromTo("#cap-A1-0-t",{scale:0.86,opacity:0},{scale:1,opacity:1,duration:0.09,ease:"back.out(2.4)"},0.15);
+      tl.fromTo("#cap-V1-0-t",{scale:0.86,opacity:0},{scale:1,opacity:1,duration:0.09,ease:"back.out(2.4)"},2.15);
+      tl.fromTo("#cap-V1-1-t",{scale:0.86,opacity:0},{scale:1,opacity:1,duration:0.09,ease:"back.out(2.4)"},3.05);
+      tl.fromTo("#cap-A2-0-t",{scale:0.86,opacity:0},{scale:1,opacity:1,duration:0.09,ease:"back.out(2.4)"},4.15);
+      tl.fromTo("#cap-V8-0-t",{scale:0.86,opacity:0},{scale:1,opacity:1,duration:0.09,ease:"back.out(2.4)"},20.95);
+      tl.fromTo("#cap-A9-0-t",{scale:0.86,opacity:0},{scale:1,opacity:1,duration:0.09,ease:"back.out(2.4)"},22.95);
+      tl.fromTo("#cap-A9-1-t",{scale:0.86,opacity:0},{scale:1,opacity:1,duration:0.09,ease:"back.out(2.4)"},23.85);
+      tl.fromTo("#nl1",{scale:2.2,opacity:0},{scale:1,opacity:1,duration:0.12,ease:"power4.out"},5.2);
+      tl.fromTo("#nl2",{scale:2.2,opacity:0},{scale:1,opacity:1,duration:0.12,ease:"power4.out"},5.36);
+      tl.fromTo("#nl3",{scale:2.2,opacity:0},{scale:1,opacity:1,duration:0.12,ease:"power4.out"},5.52);
+      tl.fromTo("#g1p",{scale:1.16},{scale:1.0,duration:1.2,ease:"power2.out"},6.4);
+      tl.fromTo("#g1sl",{x:-1400},{x:1400,duration:0.3,ease:"power2.inOut"},6.4);
+      tl.fromTo("#g1t0",{x:-90,opacity:0},{x:0,opacity:1,duration:0.18,ease:"power4.out"},6.44);
+      tl.fromTo("#g1t1",{x:90,opacity:0},{x:0,opacity:1,duration:0.18,ease:"power4.out"},6.5);
+      tl.fromTo("#g1tag",{opacity:0,y:12},{opacity:1,y:0,duration:0.15,ease:"power2.out"},6.6);
+      tl.fromTo("#g2p",{scale:1.16},{scale:1.0,duration:1.2,ease:"power2.out"},7.6);
+      tl.fromTo("#g2sl",{x:-1400},{x:1400,duration:0.3,ease:"power2.inOut"},7.6);
+      tl.fromTo("#g2t0",{x:-90,opacity:0},{x:0,opacity:1,duration:0.18,ease:"power4.out"},7.64);
+      tl.fromTo("#g2tag",{opacity:0,y:12},{opacity:1,y:0,duration:0.15,ease:"power2.out"},7.8);
+      tl.fromTo("#g3p",{scale:1.16},{scale:1.0,duration:1.2,ease:"power2.out"},8.8);
+      tl.fromTo("#g3sl",{x:-1400},{x:1400,duration:0.3,ease:"power2.inOut"},8.8);
+      tl.fromTo("#g3t0",{x:-90,opacity:0},{x:0,opacity:1,duration:0.18,ease:"power4.out"},8.84);
+      tl.fromTo("#g3t1",{x:90,opacity:0},{x:0,opacity:1,duration:0.18,ease:"power4.out"},8.9);
+      tl.fromTo("#g3tag",{opacity:0,y:12},{opacity:1,y:0,duration:0.15,ease:"power2.out"},9.0);
+      tl.fromTo("#g4p",{scale:1.16},{scale:1.0,duration:1.2,ease:"power2.out"},10.0);
+      tl.fromTo("#g4sl",{x:-1400},{x:1400,duration:0.3,ease:"power2.inOut"},10.0);
+      tl.fromTo("#g4t0",{x:-90,opacity:0},{x:0,opacity:1,duration:0.18,ease:"power4.out"},10.04);
+      tl.fromTo("#g4t1",{x:90,opacity:0},{x:0,opacity:1,duration:0.18,ease:"power4.out"},10.1);
+      tl.fromTo("#g4tag",{opacity:0,y:12},{opacity:1,y:0,duration:0.15,ease:"power2.out"},10.2);
+      tl.fromTo("#g5p",{scale:1.16},{scale:1.0,duration:1.2,ease:"power2.out"},11.2);
+      tl.fromTo("#g5sl",{x:-1400},{x:1400,duration:0.3,ease:"power2.inOut"},11.2);
+      tl.fromTo("#g5t0",{x:-90,opacity:0},{x:0,opacity:1,duration:0.18,ease:"power4.out"},11.24);
+      tl.fromTo("#g5tag",{opacity:0,y:12},{opacity:1,y:0,duration:0.15,ease:"power2.out"},11.4);
+      tl.fromTo("#g6p",{scale:1.16},{scale:1.0,duration:1.2,ease:"power2.out"},12.4);
+      tl.fromTo("#g6sl",{x:-1400},{x:1400,duration:0.3,ease:"power2.inOut"},12.4);
+      tl.fromTo("#g6t0",{x:-90,opacity:0},{x:0,opacity:1,duration:0.18,ease:"power4.out"},12.44);
+      tl.fromTo("#g6t1",{x:90,opacity:0},{x:0,opacity:1,duration:0.18,ease:"power4.out"},12.5);
+      tl.fromTo("#g6tag",{opacity:0,y:12},{opacity:1,y:0,duration:0.15,ease:"power2.out"},12.6);
+      tl.fromTo("#g7p",{scale:1.16},{scale:1.0,duration:1.2,ease:"power2.out"},13.6);
+      tl.fromTo("#g7sl",{x:-1400},{x:1400,duration:0.3,ease:"power2.inOut"},13.6);
+      tl.fromTo("#g7t0",{x:-90,opacity:0},{x:0,opacity:1,duration:0.18,ease:"power4.out"},13.64);
+      tl.fromTo("#g7tag",{opacity:0,y:12},{opacity:1,y:0,duration:0.15,ease:"power2.out"},13.8);
+      tl.fromTo("#st0",{y:1920},{y:0,duration:0.35,ease:"power4.out"},14.8);
+      tl.fromTo("#st1",{y:-1920},{y:0,duration:0.35,ease:"power4.out"},14.83);
+      tl.fromTo("#st2",{y:1920},{y:0,duration:0.35,ease:"power4.out"},14.86);
+      tl.fromTo("#st3",{y:-1920},{y:0,duration:0.35,ease:"power4.out"},14.89);
+      tl.fromTo("#st4",{y:1920},{y:0,duration:0.35,ease:"power4.out"},14.92);
+      tl.fromTo("#st5",{y:-1920},{y:0,duration:0.35,ease:"power4.out"},14.95);
+      tl.fromTo("#st6",{y:1920},{y:0,duration:0.35,ease:"power4.out"},14.98);
+      tl.fromTo("#pw1",{y:60,opacity:0,scale:1.15},{y:0,opacity:1,scale:1,duration:0.2,ease:"power4.out"},14.85);
+      tl.fromTo("#pw2",{y:60,opacity:0,scale:1.15},{y:0,opacity:1,scale:1,duration:0.2,ease:"power4.out"},16.45);
+      tl.fromTo("#pw3",{y:60,opacity:0,scale:1.15},{y:0,opacity:1,scale:1,duration:0.2,ease:"power4.out"},17.65);
+      tl.fromTo("#pw4",{y:60,opacity:0,scale:1.15},{y:0,opacity:1,scale:1,duration:0.2,ease:"power4.out"},18.85);
+      tl.fromTo("#chatIn",{y:-260,opacity:0},{y:0,opacity:1,duration:0.3,ease:"back.out(1.6)"},21.3);
+      tl.fromTo("#chatSeen",{opacity:0},{opacity:1,duration:0.05},22.8);
+      tl.fromTo("#chatIn",{x:0},{x:14,duration:0.05,ease:"none",repeat:5,yoyo:true},22.8);
+      tl.to("#chatIn",{y:-300,opacity:0,duration:0.2,ease:"power2.in"},24.55);
+      tl.fromTo("#so1a",{scale:1.4,opacity:0},{scale:1,opacity:1,duration:0.16,ease:"power4.out"},24.85);
+      tl.fromTo("#so1b",{scale:1.4,opacity:0},{scale:1,opacity:1,duration:0.16,ease:"power4.out"},25.05);
+      tl.fromTo("#so2a",{scale:1.4,opacity:0},{scale:1,opacity:1,duration:0.16,ease:"power4.out"},26.05);
+      tl.fromTo("#so2b",{scale:1.4,opacity:0},{scale:1,opacity:1,duration:0.16,ease:"power4.out"},26.25);
+      tl.fromTo("#seamBar",{scaleX:0},{scaleX:1,duration:0.2,ease:"power4.out"},27.2);
+      tl.fromTo("#seamTxt",{scale:1.5,opacity:0},{scale:1,opacity:1,duration:0.15,ease:"power4.out"},27.3);
+      tl.fromTo("#seamCap",{opacity:0,y:20},{opacity:1,y:0,duration:0.15,ease:"power2.out"},27.75);
+      tl.fromTo("#handle",{opacity:0,y:16},{opacity:1,y:0,duration:0.25,ease:"power2.out"},28.9);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
